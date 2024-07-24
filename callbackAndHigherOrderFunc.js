@@ -95,19 +95,21 @@ console.log(union([[5, 10, 15], [15, 88, 1, 5, 7], [100, 15, 10, 1, 5]]));
 
 // Challenge 9
 function objOfMatches(array1, array2, callback) {
-
+  const newArr = array1.filter(ele => callback(ele)=== array2.at(array1.indexOf(ele)));
+  return newArr.reduce((o, key) => ({...o, [key]: callback(key)}), {});
 }
 
-// console.log(objOfMatches(['hi', 'howdy', 'bye', 'later', 'hello'], ['HI', 'Howdy', 'BYE', 'LATER', 'hello'], function(str) { return str.toUpperCase(); }));
+console.log(objOfMatches(['hi', 'howdy', 'bye', 'later', 'hello'], ['HI', 'Howdy', 'BYE', 'LATER', 'hello'], function(str) { return str.toUpperCase(); }));
 // should log: { hi: 'HI', bye: 'BYE', later: 'LATER' }
 
 
 // Challenge 10
 function multiMap(arrVals, arrCallbacks) {
-
+  const arrayValue = arrVals.map(ele => arrCallbacks.flatMap(callback => callback(ele)));
+  return arrVals.reduce((o, key) => ({...o, [key]: arrayValue.at(arrVals.indexOf(key))}), {});
 }
 
-// console.log(multiMap(['catfood', 'glue', 'beer'], [function(str) { return str.toUpperCase(); }, function(str) { return str[0].toUpperCase() + str.slice(1).toLowerCase(); }, function(str) { return str + str; }]));
+console.log(multiMap(['catfood', 'glue', 'beer'], [function(str) { return str.toUpperCase(); }, function(str) { return str[0].toUpperCase() + str.slice(1).toLowerCase(); }, function(str) { return str + str; }]));
 // should log: { catfood: ['CATFOOD', 'Catfood', 'catfoodcatfood'], glue: ['GLUE', 'Glue', 'glueglue'], beer: ['BEER', 'Beer', 'beerbeer'] }
 
 
